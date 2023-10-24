@@ -1,58 +1,71 @@
-import React, {useEffect, useState} from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from 'react';
+import Navbar from './components/Navbar';
+import Header from './components/Header';
+import CardList from './components/CardList';
 import axios from 'axios';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+import './App.css';
 
-function App() {
 
-  const [data, setData] = useState<any[]>([]);
-  const [page, setPage] = useState(1);
-  const [loading, setLoading] = useState(false);
-
-  const fetchData = async () => {
-    setLoading(true);
-    try {
-      const response = await axios.get('https://api.sampleapis.com/coffee/hot');
-      setData((prevData) => [...prevData, ...response.data]);
-      setPage(page + 1);
-    } catch (error) {
-      console.error('Error fetching data: ', error);
-    }
-    setLoading(false);
-  };
+const App: React.FC = () => {
+  const [activeFeed, setActiveFeed] = useState('coffee');
+  const [coffeeData, setCoffeeData] = useState<any[]>([]);
+  const [wineData, setWineData] = useState<any[]>([]);
+  const [coffeeLoading, setCoffeeLoading] = useState(false);
+  const [wineLoading, setWineLoading] = useState(false);
 
   useEffect(() => {
-    fetchData();
+    const fetchCoffeeData = async () => {
+      setCoffeeLoading(true);
+      try {
+        const response = await axios.get(`https://api.sampleapis.com/coffee/hot`);
+        setCoffeeData((prevData) => [...prevData, ...response.data]);
+      } catch (error) {
+        console.error('Error fetching coffee data: ', error);
+      }
+      setCoffeeLoading(false);
+    };
+    fetchCoffeeData();
   }, []);
 
   useEffect(() => {
-    const handleScroll = () => {
-      if (
-        window.innerHeight + document.documentElement.scrollTop === document.documentElement.offsetHeight
-      ) {
-        fetchData();
+    const fetchWineData = async () => {
+      setWineLoading(true);
+      try {
+        const response = await axios.get(`https://api.sampleapis.com/wines/reds`);
+        setWineData((prevData) => [...prevData, ...response.data]);
+      } catch (error) {
+        console.error('Error fetching wine data: ', error);
       }
+      setWineLoading(false);
     };
+    fetchWineData();
+  }, []);
 
-    window.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, [data]);
+  const handleSetActiveFeed = (feed: string) => {
+    setActiveFeed(feed);
+  };
 
   return (
-    <div>
-    {data.map((item) => (
-      <div key={item.id}>
-        <h2>{item.title}</h2>
-        <p>{item.description}</p>
-        <p>Ingredients: {item.ingredients.join(", ")}</p>
-        <img src={item.image} alt={item.title} style={{ width: '200px', height: '200px' }} />
+    <div style={{ backgroundColor: 'lightseagreen' }}>
+      <Navbar setActiveFeed={handleSetActiveFeed} />
+      <div className="container mt-4">
+        {activeFeed === 'coffee' && (
+          <>
+            <Header />
+            <CardList data={coffeeData} loading={coffeeLoading} />
+          </>
+        )}
+        {activeFeed === 'wine' && (
+          <>
+            <Header />
+            <CardList data={wineData} loading={wineLoading} />
+          </>
+        )}
       </div>
-    ))}
-    {loading && <div>Loading...</div>}
-  </div>
+    </div>
   );
-}
+};
 
 export default App;
