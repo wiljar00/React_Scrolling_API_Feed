@@ -8,14 +8,14 @@ type FeedMeProps = {
 
 const FeedMe: React.FC<FeedMeProps> = ({ getRandomItem, randomItem }) => {
   return (
-    <div>
-      <h2>New Page Content</h2>
+    <div className="feed-me-container">
+      <h2 className="feed-me-title">Can't Decide? Let me pick something for you!</h2>
       <button className="btn btn-primary mt-3" onClick={getRandomItem}>
-        Get Random Item
+        Get Recommendation
       </button>
       {randomItem && (
-        <div>
-          <h3>Random Item</h3>
+        <div className="random-item-container">
+          <h3 className="random-item-title">How about this?</h3>
           <CardList data={[randomItem]} loading={false} />
         </div>
       )}
