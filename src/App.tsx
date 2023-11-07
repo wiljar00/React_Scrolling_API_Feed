@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
 import Header from './components/Header';
 import CardList from './components/CardList';
+import FeedMe from './components/FeedMe';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import './App.css';
-
 
 const App: React.FC = () => {
   const [activeFeed, setActiveFeed] = useState('coffee');
@@ -47,6 +47,13 @@ const App: React.FC = () => {
     setActiveFeed(feed);
   };
 
+  const getRandomItem = () => {
+    const randomFeedData = activeFeed === 'coffee' ? coffeeData : wineData;
+    const randomItem =
+      randomFeedData[Math.floor(Math.random() * randomFeedData.length)];
+    alert(`Random Item: ${JSON.stringify(randomItem)}`);
+  };
+
   return (
     <div style={{ backgroundColor: 'lightseagreen' }}>
       <Navbar setActiveFeed={handleSetActiveFeed} />
@@ -63,6 +70,7 @@ const App: React.FC = () => {
             <CardList data={wineData} loading={wineLoading} />
           </>
         )}
+        {activeFeed === 'newPage' && <FeedMe getRandomItem={getRandomItem} />}
       </div>
     </div>
   );

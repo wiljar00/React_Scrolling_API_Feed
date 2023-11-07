@@ -23,7 +23,7 @@ const Navbar: React.FC<NavbarProps> = ({ setActiveFeed }) => {
           <span className="navbar-toggler-icon"></span>
         </button>
         <div className="collapse navbar-collapse" id="navbarNav">
-          <ul className="navbar-nav ms-auto"> {/* Added ms-auto class to align items to the right */}
+          <ul className="navbar-nav ms-auto">
             <li className="nav-item ms-auto">
               <button className="nav-link" onClick={() => setActiveFeed('coffee')}>
                 Coffee Collection
@@ -32,6 +32,11 @@ const Navbar: React.FC<NavbarProps> = ({ setActiveFeed }) => {
             <li className="nav-item ms-auto">
               <button className="nav-link" onClick={() => setActiveFeed('wine')}>
                 Wine Collection
+              </button>
+            </li>
+            <li className="nav-item ms-auto">
+              <button className="nav-link" onClick={() => setActiveFeed('newPage')}>
+                FeedMe
               </button>
             </li>
           </ul>
