@@ -14,6 +14,7 @@ const App: React.FC = () => {
   const [wineData, setWineData] = useState<any[]>([]);
   const [coffeeLoading, setCoffeeLoading] = useState(false);
   const [wineLoading, setWineLoading] = useState(false);
+  const [randomItem, setRandomItem] = useState<any | null>(null);
 
   useEffect(() => {
     const fetchCoffeeData = async () => {
@@ -51,7 +52,7 @@ const App: React.FC = () => {
     const randomFeedData = activeFeed === 'coffee' ? coffeeData : wineData;
     const randomItem =
       randomFeedData[Math.floor(Math.random() * randomFeedData.length)];
-    alert(`Random Item: ${JSON.stringify(randomItem)}`);
+    setRandomItem(randomItem);
   };
 
   return (
@@ -70,7 +71,7 @@ const App: React.FC = () => {
             <CardList data={wineData} loading={wineLoading} />
           </>
         )}
-        {activeFeed === 'newPage' && <FeedMe getRandomItem={getRandomItem} />}
+        {activeFeed === 'newPage' && <FeedMe getRandomItem={getRandomItem} randomItem={randomItem} />}
       </div>
     </div>
   );
