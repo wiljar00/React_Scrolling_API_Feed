@@ -8,7 +8,7 @@ const Navbar: React.FC<NavbarProps> = ({ setActiveFeed }) => {
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="container">
-        <button className="navbar-brand btn btn-link" onClick={() => setActiveFeed('')}>
+        <button className="navbar-brand btn btn-link" onClick={() => setActiveFeed('home')}>
           Food Feed App
         </button>
         <button
@@ -35,7 +35,7 @@ const Navbar: React.FC<NavbarProps> = ({ setActiveFeed }) => {
               </button>
             </li>
             <li className="nav-item ms-auto">
-              <button className="nav-link" onClick={() => setActiveFeed('newPage')}>
+              <button className="nav-link" onClick={() => setActiveFeed('feedMe')}>
                 FeedMe
               </button>
             </li>

@@ -7,6 +7,7 @@ import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import './App.css';
+import Homepage from './components/Homepage';
 
 const App: React.FC = () => {
   const [activeFeed, setActiveFeed] = useState('coffee');
@@ -59,6 +60,7 @@ const App: React.FC = () => {
     <div style={{ backgroundColor: 'lightseagreen' }}>
       <Navbar setActiveFeed={handleSetActiveFeed} />
       <div className="container mt-4">
+        {activeFeed === 'home' && <Homepage />}
         {activeFeed === 'coffee' && (
           <>
             <Header />
@@ -71,7 +73,7 @@ const App: React.FC = () => {
             <CardList data={wineData} loading={wineLoading} />
           </>
         )}
-        {activeFeed === 'newPage' && <FeedMe getRandomItem={getRandomItem} randomItem={randomItem} />}
+        {activeFeed === 'feedMe' && <FeedMe getRandomItem={getRandomItem} randomItem={randomItem} />}
       </div>
     </div>
   );
