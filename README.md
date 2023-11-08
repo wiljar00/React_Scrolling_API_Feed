@@ -2,7 +2,7 @@
 _Note - This is a just dev sandbox project used for learning new technologies. 
         Not intended to for public use._
 
-This is a project to get data from and api and render it in compoenents using ReactJS and TypeScript. 
+This is a project to fetch data from an external api and render it in components using ReactJS and TypeScript. 
 
 In order to run this app, run the following command from the root directory:
 
